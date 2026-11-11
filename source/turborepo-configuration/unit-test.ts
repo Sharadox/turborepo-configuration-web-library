@@ -28,7 +28,11 @@ describe("turborepoConfiguration", () => {
   test("a Next.js application builds .next/, runs end-to-end tests after the build and serves locally", () => {
     const { tasks, globalEnv } = turborepoConfiguration("next-js-application");
     expect(globalEnv).toEqual(["NODE_ENV"]);
-    expect(tasks.build).toMatchObject({ outputs: [".next/**", "!.next/cache/**"], env: ["NEXT_PUBLIC_*"] });
+    expect(tasks.build).toMatchObject({
+      outputs: [".next/**", "!.next/cache/**"],
+      env: ["NEXT_PUBLIC_*"],
+      passThroughEnv: ["EMAIL_*", "TURBOREPO_*"],
+    });
     expect(tasks["test:end-to-end"]!.dependsOn).toEqual(["build"]);
     expect(tasks.development).toEqual({ cache: false, persistent: true });
     expect(tasks.lint!.inputs).toContain("src/**");

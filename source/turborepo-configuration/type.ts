@@ -7,6 +7,8 @@ export interface TurborepoTask {
   inputs?: string[];
   outputs?: string[];
   env?: string[];
+  /** Variables the task can read that don't change its result (runtime secrets), so they never affect the cache. */
+  passThroughEnv?: string[];
   cache?: boolean;
   persistent?: boolean;
 }
