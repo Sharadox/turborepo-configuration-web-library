@@ -50,6 +50,9 @@ export function turborepoConfiguration(kind: ProjectKind): TurborepoConfiguratio
           ],
           outputs: [".next/**", "!.next/cache/**"],
           env: ["NEXT_PUBLIC_*"],
+          // Runtime-only: email-web-library's settings and the cache signature key. Declared so Vercel passes them
+          // through (and stops warning) without letting secrets change the build cache.
+          passThroughEnv: ["EMAIL_*", "TURBOREPO_*"],
         },
         "test:end-to-end": {
           dependsOn: ["build"],
