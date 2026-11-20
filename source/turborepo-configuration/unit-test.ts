@@ -34,6 +34,7 @@ describe("turborepoConfiguration", () => {
       passThroughEnv: ["EMAIL_*", "TURBOREPO_*"],
     });
     expect(tasks["test:end-to-end"]!.dependsOn).toEqual(["build"]);
+    expect(tasks["test:end-to-end"]!.passThroughEnv).toEqual(["PORT"]);
     expect(tasks.development).toEqual({ cache: false, persistent: true });
     expect(tasks.lint!.inputs).toContain("src/**");
   });
