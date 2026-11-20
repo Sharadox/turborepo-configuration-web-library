@@ -58,6 +58,8 @@ export function turborepoConfiguration(kind: ProjectKind): TurborepoConfiguratio
           dependsOn: ["build"],
           inputs: ["src/**", "public/**", "playwright.config.ts"],
           outputs: ["test-results/**", "playwright-report/**"],
+          // The port the test server listens on: each CI runner on a shared machine sets its own.
+          passThroughEnv: ["PORT"],
         },
         development: { cache: false, persistent: true },
         start: { cache: false, persistent: true },
