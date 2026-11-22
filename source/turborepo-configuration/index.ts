@@ -39,6 +39,9 @@ export function turborepoConfiguration(kind: ProjectKind): TurborepoConfiguratio
         ...commonTasks("src"),
         "type-check": { inputs: ["src/**", "*.ts", "tsconfig*.json", "next-env.d.ts"] },
         build: {
+          // After the type check: its `next typegen` writes into .next while `next build` clears it, so running both
+          // at once lost the route types now and then (ENOENT on .next/types/routes.d.ts).
+          dependsOn: ["type-check"],
           inputs: [
             "src/**",
             "public/**",
